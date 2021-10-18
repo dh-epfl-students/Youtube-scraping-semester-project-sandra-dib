@@ -1,0 +1,3 @@
+beautifulsoup4 pandas requests lxml unicodedata2
+youtube_dl urllib3 regex unidecode tqdm pytube
+random2
