@@ -11,3 +11,4 @@ tqdm
 pytube
 random2
 opencv-python
+python-Levenshtein

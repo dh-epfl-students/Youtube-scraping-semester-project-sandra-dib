@@ -5,12 +5,12 @@ import urllib
 import urllib.request
 import re
 import unidecode
-import pandas as pd
 from tqdm import tqdm
 import pytube
+import pandas as pd
 from pytube import YouTube
 
-places = pd.read_csv('../data/unesco_sites.csv', delimiter = ';', header = None)[1].values
+inputfile = csv.reader(open('../data/unesco_sites_cleaned.csv','r'), delimiter=';')
 
 ydl_opts = {
 'format': 'bestaudio/best',
@@ -27,7 +27,11 @@ video_dict = {}
 
 
 # read line by line
-for place in tqdm(places):
+for row in tqdm(inputfile):
+    
+    # get second column (names of places)
+    place = row[1]
+    
     # clean string : remove accents
     place_clean1 = unidecode.unidecode(place)
     # clean string : remove spaces
@@ -42,7 +46,7 @@ for place in tqdm(places):
     
     # store the results
     video_ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())
-    
+  
     for video_id in video_ids:
         try:
             ydl_opts = {'ignoreerrors': True}
@@ -51,11 +55,10 @@ for place in tqdm(places):
                 if (myVideo.streams.filter(res="2160p") != None) :
                     if not myVideo.age_restricted:
                         dictMeta = ydl.extract_info("https://www.youtube.com/watch?v=%s" % video_id, download=False)
-            video_dict.update({video_id : [place_clean2, dictMeta['duration'], dictMeta['title'], dictMeta['upload_date']]})
+            
+                        video_dict.update({video_id : [place_clean1, dictMeta['duration'], dictMeta['title'], dictMeta['upload_date']]})
             
         except Exception as e:
-            video_df = pd.DataFrame.from_dict(video_dict, orient='index', columns=['place', 'duration', 'title', 'date'])
-            video_df.to_csv('../data/video_info.csv', index_label = 'id')
             print("ERROR Catched and Passed", e)
             pass 
         
