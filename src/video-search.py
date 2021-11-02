@@ -1,6 +1,5 @@
 import numpy as np
 import youtube_dl
-import csv
 import urllib
 import urllib.request
 import re
@@ -8,29 +7,13 @@ import unidecode
 from tqdm import tqdm
 import pytube
 import pandas as pd
-from pytube import YouTube
 
-inputfile = csv.reader(open('../data/unesco_sites_cleaned.csv','r'), delimiter=';')
-
-ydl_opts = {
-'format': 'bestaudio/best',
-'outtmpl': 'tmp/%(id)s.%(ext)s',
-'noplaylist': True,
-'quiet': True,
-'prefer_ffmpeg': True,
-'audioformat': 'wav',
-'forceduration':True
-}
 
 # create an empty dictionnary
 video_dict = {}
 
-
-# read line by line
-for row in tqdm(inputfile):
-    
-    # get second column (names of places)
-    place = row[1]
+inputfile = pd.read_csv('../data/unesco_sites_cleaned.csv',delimiter=';', header= None)
+for place in tqdm(inputfile[1]):
     
     # clean string : remove accents
     place_clean1 = unidecode.unidecode(place)
@@ -49,20 +32,30 @@ for row in tqdm(inputfile):
   
     for video_id in video_ids:
         try:
-            ydl_opts = {'ignoreerrors': True}
-            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                myVideo = YouTube("https://www.youtube.com/watch?v=%s" % video_id)
-                if (myVideo.streams.filter(res="2160p") != None) :
-                    if not myVideo.age_restricted:
-                        dictMeta = ydl.extract_info("https://www.youtube.com/watch?v=%s" % video_id, download=False)
-            
-                        video_dict.update({video_id : [place_clean1, dictMeta['duration'], dictMeta['title'], dictMeta['upload_date']]})
-            
-        except Exception as e:
-            print("ERROR Catched and Passed", e)
-            pass 
+            video_url = 'https://www.youtube.com/watch?v=%s' % video_id  #The Youtube URL
+            ydl_opts = {}
+            ydl = youtube_dl.YoutubeDL(ydl_opts)
+            info_dict = ydl.extract_info(video_url, download=False)
+            formats = info_dict.get('formats',None)
+
+            x = 1080 # HD -> change to 2160 for 4k
+
+            for f in formats:
+                height = f.get('height')
+                if height is not None and height >= x and f.get('filesize') is not None:
+                # add conditions : "drone" must be in title OR description
+                
+                    print('passed')
+                    filesize = f.get('filesize')
+                    x = height
+                    video_dict[video_id] =  [place_clean1, info_dict.get('duration'), info_dict.get('title'), info_dict.get('upload_date'), height, filesize ]
+                    
+        except:
+            pass
+
+
         
     
-video_df = pd.DataFrame.from_dict(video_dict, orient='index', columns=['place', 'duration', 'title', 'date'])
+video_df = pd.DataFrame.from_dict(video_dict, orient='index', columns=['place', 'duration', 'title', 'date', 'height', 'filesize'])
 
-video_df.to_csv('../data/video_info.csv', index_label = 'id')
+video_df.to_csv('../data/video_info_2.csv', index_label = 'id')

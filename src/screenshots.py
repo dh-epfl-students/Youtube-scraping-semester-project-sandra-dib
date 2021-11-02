@@ -5,7 +5,7 @@ import numpy
 import cv2
 from tqdm import tqdm
 
-df = pd.read_csv('../data/video_info.csv', delimiter=',')
+df = pd.read_csv('../data/video_info_2.csv', delimiter=',')
 dict_sample = {}
 places_sel = random.sample(df.place.unique().tolist(), 10)
 for place in places_sel:
@@ -20,7 +20,7 @@ for key, value in tqdm(dict_sample.items()):
     for youtube_id in value:
         print(youtube_id)
         video_url = 'https://www.youtube.com/watch?v=%s' % youtube_id  #The Youtube URL
-        ydl_opts = {}
+        ydl_opts = {'format': 'best'}
         ydl = youtube_dl.YoutubeDL(ydl_opts)
         info_dict = ydl.extract_info(video_url, download=False)
 
