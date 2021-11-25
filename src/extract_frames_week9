@@ -1,0 +1,22 @@
+mkdir frames_videos
+
+#ffmpeg -i [input file] -r [frames per second] -f image2 [folder name]/frame%04d.png
+
+
+while IFS=, read -r id place duration title date height filesize
+do
+
+    PL1=${place// /_}
+    PL2=${PL1//[^a-zA-Z0-9_]/}
+   
+    T1=${title// /_}
+    T2=${T1//[^a-zA-Z0-9_]/}
+    echo $URL$id
+    
+    mkdir -p /media/sdib/wd_elements/frames_videos/$PL2
+    mkdir -p /media/sdib/wd_elements/frames_videos/$PL2/$date-$T2-$id.mp4
+    
+    ffmpeg -i /media/sdib/wd_elements/youtube_videos/$PL2/$date-$T2-$id.mp4 -r 1 -f image2 /media/sdib/wd_elements/frames_videos/$PL2/$date-$T2-$id/frame%04d.png
+
+
+done < ~/Desktop/dhlab_scraping/data/video_info_2.csv

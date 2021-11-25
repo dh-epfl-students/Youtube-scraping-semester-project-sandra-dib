@@ -1,0 +1,25 @@
+mkdir -p frames_videos
+
+
+#ffmpeg -i [input file] -r [frames per second] -f image2 [folder name]/frame%04d.png
+
+for D_Place in $(find /media/sdib/wd_elements/youtube_videos -mindepth 1 -maxdepth 1 -type d) 
+do
+    fname=$(basename $D_Place)
+    mkdir -p /media/sdib/wd_elements/frames_videos/$fname
+    
+    for D_Place_Name in $(find /media/sdib/wd_elements/youtube_videos/$fname -mindepth 1 -maxdepth 1 -type f) 
+    do
+      fname2=$(basename $D_Place_Name .mp4)
+      file=/media/sdib/wd_elements/frames_videos/$fname/$fname2
+      
+      if [ -f "$file" ]; then
+          echo "$file exists."
+          
+      else
+          echo $D_Place_Name
+          mkdir -p /media/sdib/wd_elements/frames_videos/$fname/$fname2
+          ffmpeg -i /media/sdib/wd_elements/youtube_videos/$fname/$fname2.mp4 -r 1 -f image2 /media/sdib/wd_elements/frames_videos/$fname/$fname2/frame%04d.png
+      fi   
+    done  
+done

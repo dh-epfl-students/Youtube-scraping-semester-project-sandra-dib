@@ -4,8 +4,8 @@ import urllib
 import urllib.request
 import re
 import unidecode
-from tqdm import tqdm
-import pytube
+from tqdm.autonotebook import tqdm
+#import pytube
 import pandas as pd
 
 
@@ -22,10 +22,11 @@ for place in tqdm(inputfile[1]):
     
     # add key words 
     search_words = place_clean2 + "+drone"
+    id_4k = "&sp=EgJwAQ%253D%253D"
     
     # make a request in youtube, store the results in a list
     results = []
-    html = urllib.request.urlopen("https://www.youtube.com/results?search_query=" + search_words)
+    html = urllib.request.urlopen("https://www.youtube.com/results?search_query=" + search_words + id_4k)
     
     # store the results
     video_ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())
@@ -38,19 +39,23 @@ for place in tqdm(inputfile[1]):
             info_dict = ydl.extract_info(video_url, download=False)
             formats = info_dict.get('formats',None)
 
-            x = 1080 # HD -> change to 2160 for 4k
+            x = 2160 # HD -> change to 2160 for 4k
+            keyword = "drone"
+            title = info_dict.get('title')
 
             for f in formats:
                 height = f.get('height')
-                if height is not None and height >= x and f.get('filesize') is not None:
-                # add conditions : "drone" must be in title OR description
-                
+                if height is not None and height >= x and f.get('filesize') is not None and title.__contains__(keyword):
+
                     print('passed')
                     filesize = f.get('filesize')
                     video_dict[video_id] =  [place_clean1, info_dict.get('duration'), info_dict.get('title'), info_dict.get('upload_date'), height, filesize ]
-                    
+
         except:
             pass
+        
+    
+            
 
 
         

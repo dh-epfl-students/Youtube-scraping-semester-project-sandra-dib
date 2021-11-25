@@ -1,0 +1,17 @@
+#!/bin/bash
+
+URL="https://www.youtube.com/watch?v="
+
+while IFS=, read -r id place duration title date height filesize
+do
+
+    PL1=${place// /_}
+    PL2=${PL1//[^a-zA-Z0-9_]/}
+    
+    T1=${title// /_}
+    T2=${T1//[^a-zA-Z0-9_]/}
+    echo $URL$id
+    mkdir -p /media/sdib/wd_elements/youtube_videos/$PL2
+    youtube-dl $URL$id -o /media/sdib/wd_elements/youtube_videos/$PL2/$date-$T2-$id.mp4 -f best
+
+done < ~/Desktop/dhlab_scraping/data/video_info_2.csv

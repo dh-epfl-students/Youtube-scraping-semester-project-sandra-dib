@@ -4,15 +4,19 @@ import youtube_dl
 import numpy
 import cv2
 from tqdm import tqdm
+import os
 
 df = pd.read_csv('../data/video_info_2.csv', delimiter=',')
 dict_sample = {}
-places_sel = random.sample(df.place.unique().tolist(), 10)
+places_sel = random.sample(df.place.unique().tolist(), 100)
+
 for place in places_sel:
     ids = df.loc[df['place'] == place].id.tolist()
-    ids_sample = random.sample(ids, 10)
+    ids_sample = random.sample(ids, 1)
     dict_sample.update({place : ids_sample})
     
+if not os.path.exists("../data/screenshots/"):
+    os.makedirs("../data/screenshots/")
     
 for key, value in tqdm(dict_sample.items()):
     

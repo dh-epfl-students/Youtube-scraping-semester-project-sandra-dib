@@ -1,0 +1,19 @@
+mkdir -p youtube_3D
+mkdir -p /media/sdib/wd_elements/Aachen_cathedral/
+mkdir -p /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o
+mkdir -p /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/list
+mkdir -p /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/description
+mkdir -p /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/geometric
+mkdir -p /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/increment
+mkdir -p /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/color
+LOGS_PATH='/media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/logs'
+
+openMVG_main_SfMInit_ImageListing -i /media/sdib/wd_elements/frames_videos/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o -o /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/list -g 0 > $LOGS_PATH
+
+openMVG_main_ComputeFeatures -i /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/list/sfm_data.json -o /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/geometric >> $LOGS_PATH
+
+openMVG_main_ComputeMatches -i /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/list/sfm_data.json -o /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/geometric >> $LOGS_PATH
+
+openMVG_main_IncrementalSfM -i /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/list/sfm_data.json  -m /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/geometric -o /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/increment >> $LOGS_PATH
+
+openMVG_main_ComputeSfM_DataColor -i /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/list/sfm_data.bin  -o /media/sdib/wd_elements/youtube_3D/Aachen_cathedral/20180929-Lake_Aachen_Achensee__4k_drone_based_teaser-vJ1HftOGa7o/color >> $LOGS_PATH
