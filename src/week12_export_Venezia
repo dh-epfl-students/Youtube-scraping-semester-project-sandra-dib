@@ -1,0 +1,9 @@
+mkdir -p /media/sdib/wd_elements/youtube_3D_Venezia/keypoints
+mkdir -p /media/sdib/wd_elements/youtube_3D_Venezia/matches
+LOGS_PATH='/media/sdib/wd_elements/youtube_3D_Venezia/logs'
+
+openMVG_main_exportKeypoints -i /media/sdib/wd_elements/youtube_3D_Venezia/list/sfm_data.json -d /media/sdib/wd_elements/youtube_3D_Venezia/list -o /media/sdib/wd_elements/youtube_3D_Venezia/keypoints -g 0 > $LOGS_PATH
+
+openMVG_main_exportMatches -i /media/sdib/wd_elements/youtube_3D_Venezia/list/sfm_data.json -d /media/sdib/wd_elements/youtube_3D_Venezia/list -m list -o /media/sdib/wd_elements/youtube_3D_Venezia/matches >> $LOGS_PATH
+
+    

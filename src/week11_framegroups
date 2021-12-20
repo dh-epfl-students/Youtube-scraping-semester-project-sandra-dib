@@ -1,0 +1,102 @@
+mkdir -p /media/sdib/wd_elements/group1
+mkdir -p /media/sdib/wd_elements/group2
+mkdir -p /media/sdib/wd_elements/group3
+mkdir -p /media/sdib/wd_elements/group4
+mkdir -p /media/sdib/wd_elements/group5
+mkdir -p /media/sdib/wd_elements/group6
+mkdir -p /media/sdib/wd_elements/group7
+mkdir -p /media/sdib/wd_elements/group8
+mkdir -p /media/sdib/wd_elements/group9
+mkdir -p /media/sdib/wd_elements/group10
+counter=0
+echo $counter
+
+for D_frame in /media/sdib/wd_elements/all_frames_Venice_sample/*.png;
+do
+  fname=$(basename $D_frame)
+  
+  if [[ "$counter" -lt 400 ]]; then
+    echo $D_frame
+    echo $counter
+    cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group1/
+    
+    if [[ "$counter" -lt 400 ]] && [[ "$counter" -gt 350 ]]; then
+       cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group2/
+    fi
+    
+  elif [[ "$counter" -lt 750 ]] && [[ "$counter" -gt 400 ]] ; then
+    echo $D_frame
+    cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group2/
+    
+    if [[ "$counter" -lt 750 ]] && [[ "$counter" -gt 700 ]]; then
+       cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group3/
+    fi
+  
+  elif [[ "$counter" -lt 1100 ]] && [[ "$counter" -gt 750 ]] ; then
+    echo $D_frame
+    cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group3/
+    
+    if [[ "$counter" -lt 1100 ]] && [[ "$counter" -gt 1050 ]]; then
+       cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group4/
+    fi
+    
+  elif [[ "$counter" -lt 1500 ]] && [[ "$counter" -gt 1150 ]] ; then
+    echo $D_frame
+    cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group4/
+    
+    if [[ "$counter" -lt 1500 ]] && [[ "$counter" -gt 1450 ]]; then
+       cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group5/
+    fi
+    
+  elif [[ "$counter" -lt 1900 ]] && [[ "$counter" -gt 1550 ]] ; then
+    echo $D_frame
+    cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group5/
+    
+    if [[ "$counter" -lt 1900 ]] && [[ "$counter" -gt 1850 ]]; then
+       cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group6/
+    fi
+  
+  elif [[ "$counter" -lt 2300 ]] && [[ "$counter" -gt 1950 ]] ; then
+    echo $D_frame
+    cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group6/
+    
+    if [[ "$counter" -lt 2300 ]] && [[ "$counter" -gt 2250 ]]; then
+       cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group7/
+    fi
+    
+  elif [[ "$counter" -lt 2700 ]] && [[ "$counter" -gt 2350 ]] ; then
+    echo $D_frame
+    cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group7/
+    
+    if [[ "$counter" -lt 2700 ]] && [[ "$counter" -gt 2650 ]]; then
+       cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group8/
+    fi
+    
+  elif [[ "$counter" -lt 3100 ]] && [[ "$counter" -gt 2750 ]] ; then
+    echo $D_frame
+    cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group8/
+    
+    if [[ "$counter" -lt 3100 ]] && [[ "$counter" -gt 3050 ]]; then
+       cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group9/
+    fi
+    
+  elif [[ "$counter" -lt 3450 ]] && [[ "$counter" -gt 3100 ]] ; then
+    echo $D_frame
+    cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group9/
+    
+    if [[ "$counter" -lt 3450 ]] && [[ "$counter" -gt 3400 ]]; then
+       cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group9/
+    fi
+    
+  elif [[ "$counter" -lt 3700 ]] && [[ "$counter" -gt 3450 ]] ; then
+    echo $D_frame
+    cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group10/
+
+
+  fi
+    
+  counter=$((counter+1))
+  
+done
+
+

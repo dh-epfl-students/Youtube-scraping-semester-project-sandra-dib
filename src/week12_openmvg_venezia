@@ -1,0 +1,13 @@
+mkdir -p youtube_3D_Venezia
+
+mkdir -p /media/sdib/wd_elements/youtube_3D_Venezia
+mkdir -p /media/sdib/wd_elements/youtube_3D_Venezia/list
+LOGS_PATH='/media/sdib/wd_elements/youtube_3D_Venezia/logs'
+
+openMVG_main_SfMInit_ImageListing -i /media/sdib/wd_elements/venezia_frames -o /media/sdib/wd_elements/youtube_3D_Venezia/list -g 0 > $LOGS_PATH
+
+openMVG_main_ComputeFeatures -i /media/sdib/wd_elements/youtube_3D_Venezia/list/sfm_data.json -o /media/sdib/wd_elements/youtube_3D_Venezia/list >> $LOGS_PATH
+
+openMVG_main_ComputeMatches -i /media/sdib/wd_elements/youtube_3D_Venezia/list/sfm_data.json -o /media/sdib/wd_elements/youtube_3D_Venezia/list >> $LOGS_PATH
+    
+    

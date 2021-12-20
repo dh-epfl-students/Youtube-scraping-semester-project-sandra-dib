@@ -1,0 +1,30 @@
+mkdir -p /media/sdib/wd_elements/group1
+mkdir -p /media/sdib/wd_elements/group2
+
+counter=0
+echo $counter
+
+for D_frame in /media/sdib/wd_elements/all_frames_Venice_sample/*.png;
+do
+      fname=$(basename $D_frame)
+
+      if [[ "$counter" -lt 400 ]]; then
+        echo $D_frame
+        echo $counter
+        cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group1/
+        if [[ "$counter" -lt 400 ]] && [[ "$counter" -gt 350 ]]; then
+           cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group2/
+        fi
+
+
+      elif [[ "$counter" -lt 750 ]] && [[ "$counter" -gt 350 ]] ; then
+      echo $D_frame
+      cp /media/sdib/wd_elements/all_frames_Venice_sample/$fname /media/sdib/wd_elements/group2/
+
+
+      fi
+
+      counter=$((counter+1)) 
+done
+
+

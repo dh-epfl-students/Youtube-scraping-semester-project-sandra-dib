@@ -1,0 +1,17 @@
+mkdir -p /media/sdib/wd_elements/youtube_3Dgroups
+LOGS_PATH='/media/sdib/wd_elements/youtube_3Dgroups/logs'
+
+for D_group in /media/sdib/wd_elements/group*;
+do
+    fgroup=$(basename $D_group)
+    mkdir -p /media/sdib/wd_elements/youtube_3Dgroups/$fgroup
+    mkdir -p /media/sdib/wd_elements/youtube_3Dgroups/$D_group/list
+
+    openMVG_main_SfMInit_ImageListing -i /media/sdib/wd_elements/$fgroup -o /media/sdib/wd_elements/youtube_3Dgroups/$D_group/list -g 0 > $LOGS_PATH
+
+    openMVG_main_ComputeFeatures -i /media/sdib/wd_elements/youtube_3Dgroups/$D_group/list/sfm_data.json -o /media/sdib/wd_elements/youtube_3Dgroups/$D_group/list >> $LOGS_PATH
+
+    openMVG_main_ComputeMatches -i /media/sdib/wd_elements/youtube_3Dgroups/$D_group/list/sfm_data.json -o /media/sdib/wd_elements/youtube_3Dgroups/$D_group/list >> $LOGS_PATH
+
+done
+    

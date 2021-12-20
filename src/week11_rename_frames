@@ -1,0 +1,12 @@
+for D_Name in /media/sdib/wd_elements/frames_Venice/*;
+do
+  fname=$(basename $D_Name)
+  
+  for D_Frames in $D_Name/*.png;
+  do
+      fname2=$(basename $D_Frames)
+      echo $D_Frames $D_Name/$fname-$fname2
+      mv $D_Frames $D_Name/$fname-$fname2
+  done
+  
+done 

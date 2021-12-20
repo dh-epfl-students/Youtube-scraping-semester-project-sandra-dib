@@ -1,0 +1,13 @@
+#!/bin/bash
+
+URL="https://www.youtube.com/watch?v="
+
+while IFS=, read -r id duration title date
+do
+    
+    T1=${title// /_}
+    T2=${T1//[^a-zA-Z0-9_]/}
+    mkdir -p /media/sdib/wd_elements/venice_videos/
+    youtube-dl $URL$id -o /media/sdib/wd_elements/venice_videos/$date-$T2-$id.mp4 -f best
+
+done < ~/Desktop/dhlab_scraping/data/venice_info.csv

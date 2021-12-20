@@ -1,0 +1,6 @@
+#ffmpeg -i [input file] -r [frames per second] -f image2 [folder name]/frame%04d.png
+
+mkdir -p /media/sdib/wd_elements/venezia_frames
+
+ffmpeg -i /media/sdib/wd_elements/venice_videos/20200711-Venezia_video_con_il_drone-NAb1ATrEn5k.mp4 -r 25 -f image2 /media/sdib/wd_elements/venezia_frames/frame%04d.png
+
